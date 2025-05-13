@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    background-color: #FFEAE9;
+    min-height: 90vh;
+    min-width: 217vh;
+  }
+  
+  .section {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    height: 45vh;
+    width: 68vh;
+    overflow-y: auto;
+  }
+  
+  .array-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .array-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFCCCB;
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+  }
+  
+  .array-item .value {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .array-item .index {
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .instructions {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }

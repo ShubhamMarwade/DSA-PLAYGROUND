@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Playground</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+        }
+        .sub-card {
+            display: none;
+        }
+        .card.active .sub-card {
+            display: block;
+        }
+        .search-results {
+            position: absolute;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .search-result-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .search-result-item:hover {
+            background-color: #f8f9fa;
+        }
+        .code-compiler-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .code-compiler-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .funground-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .funground-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .funground-play-btn {
+            transition: all 0.3s ease;
+        }
+        .funground-play-btn:hover {
+            transform: scale(1.1);
+            background-color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/widecanvas-d0dd4.appspot.com/o/logos%2Flogo.png?alt=media&token=957b441c-8dc6-47eb-9165-c757b0924c5c" alt="Logo" class="h-8">
+                    <span class="ml-2 text-xl font-bold text-red-600">DSA Playground</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-600 hover:text-red-600">
+                        <i class="bi bi-house-door-fill"></i> Home
+                    </button>
+                    <button class="text-gray-600 hover:text-red-600">
+                        <i class="bi bi-person-circle"></i> Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Code Compiler Section -->
+        <div class="text-center mb-12">
+            <button onclick="openCodeCompiler()" class="code-compiler-btn bg-red-600 text-white px-8 py-4 rounded-lg text-2xl font-bold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                <i class="bi bi-code-slash mr-3"></i>Code Compiler
+            </button>
+            <p class="mt-4 text-gray-600 text-lg">Explore this tab to compile your code in multiple programming languages</p>
+        </div>
+
+        <h1 class="text-4xl font-bold text-center text-red-600 mb-12">DSA Visualizer</h1>
+        
+        <!-- Search Bar -->
+        <div class="relative max-w-xl mx-auto mb-12">
+            <div class="relative">
+                <input 
+                    type="text" 
+                    id="dsa-search" 
+                    placeholder="Search DSA topics (e.g., Bubble Sort, BFS, Knapsack)" 
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-700"
+                >
+                <i class="bi bi-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <div id="search-results" class="search-results hidden"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Sorting Card -->
+            <div class="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 card-hover" data-category="sorting">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Sorting</h2>
+                    <i class="bi bi-sort-alpha-down text-2xl text-red-600"></i>
+                </div>
+                <div class="sub-card space-y-2">
+                    <button onclick="openVisualizer('bubble-sort')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="bubble sort">Bubble Sort</button>
+                    <button onclick="openVisualizer('insertion-sort')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="insertion sort">Insertion Sort</button>
+                    <button onclick="openVisualizer('merge-sort')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="merge sort">Merge Sort</button>
+                </div>
+            </div>
+
+            <!-- Tree Card -->
+            <div class="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 card-hover" data-category="trees">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Trees</h2>
+                    <i class="bi bi-diagram-3 text-2xl text-red-600"></i>
+                </div>
+                <div class="sub-card space-y-2">
+                    <button onclick="openVisualizer('bst')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="binary search tree">Binary Search Tree</button>
+                    <button onclick="openVisualizer('avl')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="avl tree">AVL Tree</button>
+                </div>
+            </div>
+
+            <!-- Graph Card -->
+            <div class="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 card-hover" data-category="graphs">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Graphs</h2>
+                    <i class="bi bi-graph-up text-2xl text-red-600"></i>
+                </div>
+                <div class="sub-card space-y-2">
+                    <button onclick="openVisualizer('bfs')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="breadth first search">BFS</button>
+                    <button onclick="openVisualizer('dfs')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="depth first search">DFS</button>
+                    <button onclick="openVisualizer('dijkstra')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="dijkstra algorithm">Dijkstra's Algorithm</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Programming Card -->
+            <div class="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 card-hover" data-category="dynamic programming">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Dynamic Programming</h2>
+                    <i class="bi bi-grid-3x3 text-2xl text-red-600"></i>
+                </div>
+                <div class="sub-card space-y-2">
+                    <button onclick="openVisualizer('knapsack')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="knapsack problem">0/1 Knapsack</button>
+                    <button onclick="openVisualizer('nqueen')" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-red-50 rounded-md" data-search-term="n queen problem">N-Queen Problem</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DSA Funground Section -->
+        <h1 class="text-4xl font-bold text-center text-red-600 mb-12">DSA Funground</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Keywords Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center funground-card" data-game="keywords">
+                <div class="mb-6">
+                    <i class="bi bi-chat-text text-6xl text-red-600 mb-4"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">DSA Keywords</h2>
+                <p class="text-gray-600 mb-6">Test your knowledge of Data Structures and Algorithms terminology</p>
+                <button onclick="startGame('keywords')" class="funground-play-btn bg-red-500 text-white px-6 py-3 rounded-full font-bold hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                    <i class="bi bi-play-fill mr-2"></i>Play Now
+                </button>
+            </div>
+
+            <!-- Quiz Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center funground-card" data-game="quiz">
+                <div class="mb-6">
+                    <i class="bi bi-question-diamond text-6xl text-green-600 mb-4"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">DSA Quiz</h2>
+                <p class="text-gray-600 mb-6">Challenge yourself with multiple-choice DSA questions</p>
+                <button onclick="startGame('quiz')" class="funground-play-btn bg-green-500 text-white px-6 py-3 rounded-full font-bold hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                    <i class="bi bi-play-fill mr-2"></i>Play Now
+                </button>
+            </div>
+
+            <!-- Duo Code Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center funground-card" data-game="duo-code">
+                <div class="mb-6">
+                    <i class="bi bi-code-slash text-6xl text-blue-600 mb-4"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Duo Code</h2>
+                <p class="text-gray-600 mb-6">Collaborative coding challenges with a friend</p>
+                <button onclick="startGame('duo-code')" class="funground-play-btn bg-blue-500 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    <i class="bi bi-play-fill mr-2"></i>Play Now
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Toggle cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.card').forEach(c => {
+                    if (c !== this) c.classList.remove('active');
+                });
+                this.classList.toggle('active');
+            });
+        });
+
+        // Open visualizer in new tab
+        function openVisualizer(algorithm) {
+            const visualizerUrl = `/visualizer.html?algorithm=${algorithm}`;
+            window.open(visualizerUrl, '_blank');
+        }
+
+        // Open Code Compiler
+        function openCodeCompiler() {
+            const compilerUrl = `/compiler.html`;
+            window.open(compilerUrl, '_blank');
+        }
+
+        // Prevent click propagation on buttons
+        document.querySelectorAll('.sub-card button').forEach(button => {
+            button.addEventListener('click', (e) => e.stopPropagation());
+        });
+
+        // New function to start games
+        function startGame(gameType) {
+            switch(gameType) {
+                case 'keywords':
+                    window.open('/keywords-game.html', '_blank');
+                    break;
+                case 'quiz':
+                    window.open('/dsa-quiz.html', '_blank');
+                    break;
+                case 'duo-code':
+                    window.open('/duo-code.html', '_blank');
+                    break;
+                default:
+                    console.error('Unknown game type');
+            }
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('dsa-search');
+        const searchResults = document.getElementById('search-results');
+
+        // Collect all searchable items
+        const searchItems = [];
+        document.querySelectorAll('[data-search-term]').forEach(item => {
+            searchItems.push({
+                term: item.getAttribute('data-search-term').toLowerCase(),
+                element: item,
+                card: item.closest('.card')
+            });
+        });
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                searchResults.classList.add('hidden');
+                return;
+            }
+
+            // Filter search results
+            const filteredResults = searchItems.filter(item => 
+                item.term.includes(searchTerm)
+            );
+
+            // Clear previous results
+            searchResults.innerHTML = '';
+
+            if (filteredResults.length > 0) {
+                searchResults.classList.remove('hidden');
+                
+                // Create result items
+                filteredResults.forEach(result => {
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('search-result-item');
+                    resultItem.textContent = `${result.term} (${result.card.querySelector('h2').textContent})`;
+                    
+                    resultItem.addEventListener('click', () => {
+                        // Expand the corresponding card
+                        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+                        result.card.classList.add('active');
+                        
+                        // Scroll to the card
+                        result.card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Clear search
+                        searchInput.value = '';
+                        searchResults.classList.add('hidden');
+                    });
+                    
+                    searchResults.appendChild(resultItem);
+                });
+            } else {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return
+false;
+}, { passive: false });

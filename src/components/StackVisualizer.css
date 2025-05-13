@@ -1,0 +1,28 @@
+.container {
+    padding: 20px;
+  }
+  
+  .section {
+    padding: 10px;
+  }
+  
+  .stack-container {
+    width: 100%;
+    height: auto;
+    resize: both;
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+
+  
+  .zoom-controls {
+    margin-top: 20px;
+  }
+  
+  .instructions {
+    margin-top: 20px;
+  }
+  
+  .text-red-600 {
+    color: #e3342f;
+  }

@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Prism.js Styles */
+@import 'prismjs/themes/prism-okaidia.css';
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.relative {
+  position: relative;
+}
+
+#search-results {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+}
+
+
+pre[class*="language-"] {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  overflow-x: auto;
+}
+
+code[class*="language-"] {
+  font-size: 1rem;
+  background: #2d2d2d;
+  color: #f8f8f2;
+  font-family: 'Fira Code', monospace;
+}
+/* Add this CSS to your styles file or within a <style> tag in your index.html */
+.highlighted-line {
+  background-color: rgba(3, 255, 41, 0.503) !important; /* Transparent yellow */
+}
+
+.highlight-line {
+  background-color: yellow !important;
+  display: block;
+}
+
